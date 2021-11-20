@@ -16,6 +16,8 @@ def test(app: SphinxTestApp) -> None:
 @pytest.mark.sphinx(buildername="latex")
 def test_latex(app: SphinxTestApp) -> None:
     # latex builder is chosen here
+    app.warningiserror = app.keep_going = True
+
     app.build()
 
 
@@ -23,10 +25,14 @@ def test_latex(app: SphinxTestApp) -> None:
 def test_myst(app: SphinxTestApp) -> None:
     # app is a Sphinx application for myst sphinx project
     # (tests/cases/test-myst)
+    app.warningiserror = app.keep_going = True
+
     app.build()
 
 
 @pytest.mark.sphinx(confoverrides={"html_theme": "furo"})
 def test_confoverrides(app: SphinxTestApp) -> None:
     # a Sphinx application configured with given setting
+    app.warningiserror = app.keep_going = True
+
     app.build()
