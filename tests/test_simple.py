@@ -3,6 +3,10 @@ import pytest
 from sphinx.testing.util import SphinxTestApp
 
 
+# TODO: Is there any way to parametrize a custom mark?
+# For example, repeat this test with
+# @pytest.mark.sphinx(testroot="root") and
+# @pytest.mark.sphinx(testroot="myst")
 def test(app: SphinxTestApp) -> None:
     # app is a Sphinx application object for default sphinx project
     # (tests/cases/test-root)
@@ -12,6 +16,19 @@ def test(app: SphinxTestApp) -> None:
 
     app.build()
 
+    path = app.outdir / 'index.html'
+    assert path.exists()
+
+    content = open(path).read()
+
+    chunks = [
+        '<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/1">readthedocs/readthedocs.org#1</a>',
+    ]
+
+    for chunk in chunks:
+        assert chunk in content
+
+
 
 @pytest.mark.sphinx(testroot="myst")
 def test_myst(app: SphinxTestApp) -> None:
@@ -20,3 +37,15 @@ def test_myst(app: SphinxTestApp) -> None:
     app.warningiserror = app.keep_going = True
 
     app.build()
+
+    path = app.outdir / 'index.html'
+    assert path.exists()
+
+    content = open(path).read()
+
+    chunks = [
+        '<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/1">readthedocs/readthedocs.org#1</a>',
+    ]
+
+    for chunk in chunks:
+        assert chunk in content
