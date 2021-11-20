@@ -1,3 +1,3 @@
 # Hello, world!
 
-Sample _markup_ for [testing](https://pytest.org/).
+Sample {github}`readthedocs/readthedocs.org#1` role.
