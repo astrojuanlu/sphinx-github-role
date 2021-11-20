@@ -1,4 +1,6 @@
 # See https://github.com/sphinx-doc/sphinx/issues/7008#issuecomment-573092764
+from pathlib import Path
+
 import pytest
 from sphinx.testing.util import SphinxTestApp
 
@@ -16,18 +18,21 @@ def test(app: SphinxTestApp) -> None:
 
     app.build()
 
-    path = app.outdir / 'index.html'
+    path = Path(app.outdir) / "index.html"
     assert path.exists()
 
     content = open(path).read()
 
     chunks = [
-        '<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/1">readthedocs/readthedocs.org#1</a>',
+        (
+            '<a class="reference external" '
+            'href="https://github.com/readthedocs/readthedocs.org/issues/1">'
+            "readthedocs/readthedocs.org#1</a>"
+        ),
     ]
 
     for chunk in chunks:
         assert chunk in content
-
 
 
 @pytest.mark.sphinx(testroot="myst")
@@ -38,13 +43,17 @@ def test_myst(app: SphinxTestApp) -> None:
 
     app.build()
 
-    path = app.outdir / 'index.html'
+    path = Path(app.outdir) / "index.html"
     assert path.exists()
 
     content = open(path).read()
 
     chunks = [
-        '<a class="reference external" href="https://github.com/readthedocs/readthedocs.org/issues/1">readthedocs/readthedocs.org#1</a>',
+        (
+            '<a class="reference external" '
+            'href="https://github.com/readthedocs/readthedocs.org/issues/1">'
+            "readthedocs/readthedocs.org#1</a>"
+        ),
     ]
 
     for chunk in chunks:
