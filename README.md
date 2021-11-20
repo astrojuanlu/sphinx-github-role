@@ -2,6 +2,16 @@
 
 A github role for Sphinx
 
-## Overview
+## Usage
 
-Add a longer description here.
+MyST:
+
+```
+See {github}`astrojuanlu/sphinx-github-role#1`.
+```
+
+reStructuredText:
+
+```
+See :github:`astrojuanlu/sphinx-github-role#1`.
+```
