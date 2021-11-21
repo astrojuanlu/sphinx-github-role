@@ -103,3 +103,13 @@ def test_default_org_and_project_produces_html_hyperlink(
     content = open(path).read()
 
     assert expected_chunk in content
+
+
+@pytest.mark.sphinx(testroot="default-project-no-conf")
+def test_incomplete_link_raises_error(
+    app: SphinxTestApp,
+) -> None:
+    with pytest.raises(
+        ValueError, match="Incomplete configuration or GitHub reference"
+    ):
+        app.build()
