@@ -135,3 +135,24 @@ def test_incomplete_link_raises_error(
         ValueError, match="Incomplete configuration or GitHub reference"
     ):
         app.build()
+
+
+@pytest.mark.sphinx(testroot="custom-link-text")
+def test_github_role_custom_link_text_produces_html_hyperlink(
+    app: SphinxTestApp,
+) -> None:
+    expected_chunk = (
+        '<a class="reference external" '
+        'href="https://github.com/readthedocs/readthedocs.org/issues/1">'
+        "Issue #1</a>"
+    )
+
+    app.build()
+    assert app.statuscode == 0, "Build finished with problems"
+
+    path = Path(app.outdir) / "index.html"
+    assert path.exists()
+
+    content = open(path).read()
+
+    assert expected_chunk in content
