@@ -1,4 +1,3 @@
-# See https://github.com/sphinx-doc/sphinx/issues/7008#issuecomment-573092764
 from pathlib import Path
 
 import pytest
@@ -15,8 +14,6 @@ from sphinx.testing.util import SphinxTestApp
     ],
 )
 def test_github_role_produces_html_hyperlink(app: SphinxTestApp, _: None) -> None:
-    # app is a Sphinx application object for default sphinx project
-    # (tests/cases/test-root)
     app.build()
 
     path = Path(app.outdir) / "index.html"
