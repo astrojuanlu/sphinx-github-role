@@ -52,7 +52,7 @@ class GitHub(SphinxRole):
         parts = match.groupdict()
         parts["org"] = parts["org"] or _DEFAULTS[0]
         parts["proj"] = parts["proj"] or _DEFAULTS[1]
-        if parts["org"] is None or parts["proj"] is None:
+        if not parts["org"] or not parts["proj"]:
             raise ValueError(
                 "Incomplete configuration or GitHub reference: "
                 f"default organization = '{_DEFAULTS[0]}', "
