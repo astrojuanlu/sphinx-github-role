@@ -11,15 +11,15 @@ A github role for Sphinx.
 
 MyST:
 
-```md
-# index.md
+```{code-block} md
+:caption: index.md
 See {github}`astrojuanlu/sphinx-github-role#1`.
 ```
 
 reStructuredText:
 
-```rst
-# index.rst
+```{code-block} rst
+:caption: index.rst
 See :github:`astrojuanlu/sphinx-github-role#1`.
 ```
 
@@ -29,29 +29,29 @@ The extension accepts a configuration `github_default_org_project`
 that can be a tuple `("default_org", "default_project")`
 to save some typing. For example, with this configuration:
 
-```python
-# conf.py
+```{code-block} python
+:caption: conf.py
 github_default_org_project = ("astrojuanlu", None)
 ```
 
 you can type this:
 
-```md
-# index.md
+```{code-block} md
+:caption: index.md
 See {github}`sphinx-github-role#1`.
 ```
 
 and with this configuration:
 
-```python
-# conf.py
+```{code-block} python
+:caption: conf.py
 github_default_org_project = ("astrojuanlu", "sphinx-github-role")
 ```
 
 you only need to type this:
 
-```md
-# index.md
+```{code-block} md
+:caption: index.md
 See {github}`#1`.
 ```
 
@@ -59,8 +59,8 @@ See {github}`#1`.
 
 You can also customize the link text, by wrapping the target in angle brackets:
 
-```md
-# index.md
+```{code-block} md
+:caption: index.md
 See {github}`this issue <#1>`.
 ```
 
