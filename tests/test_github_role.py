@@ -7,16 +7,14 @@ from sphinx.errors import ExtensionError
 from sphinx.testing.util import SphinxTestApp
 
 
-# TODO: Awaiting for a nicer way to do this,
-# See https://stackoverflow.com/q/70053419/554319
 @pytest.mark.parametrize(
-    "_",
+    "",
     [
-        pytest.param(None, marks=pytest.mark.sphinx),
-        pytest.param(None, marks=pytest.mark.sphinx(testroot="myst")),
+        pytest.param(marks=pytest.mark.sphinx),
+        pytest.param(marks=pytest.mark.sphinx(testroot="myst")),
     ],
 )
-def test_github_role_produces_html_hyperlink(app: SphinxTestApp, _: None) -> None:
+def test_github_role_produces_html_hyperlink(app: SphinxTestApp) -> None:
     expected_chunk = (
         '<a class="reference external" '
         'href="https://github.com/readthedocs/readthedocs.org/issues/1">'
