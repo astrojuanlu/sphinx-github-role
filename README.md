@@ -47,3 +47,7 @@ you only need to type this:
 # index.md
 See {github}`#1`.
 ```
+
+## Contribute
+
+Feel free to open an issue to report problems or suggest new features!
