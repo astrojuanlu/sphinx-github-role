@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
+from sphinx.errors import ExtensionError
 from sphinx.testing.util import SphinxTestApp
 
 
@@ -51,24 +52,37 @@ def test_invalid_config_emits_warning(
     assert app.statuscode != 0, "Expected build problem but it finished successfully"
 
 
-# test fails at the initialization stage, find some other way
-# @pytest.mark.sphinx(confoverrides={"github_default_org_project": None})
-# def test_invalid_config_emits_warning(
-#     app: SphinxTestApp,
-#     chunks: list[str],
-# ) -> None:
-#     app.build()
-#     assert app.statuscode != 0, "Expected build problem but it finished successfully"
+def test_malformed_config_emits_warning(tempdir, make_app):
+    conf_contents = """github_default_org_project = None
+
+extensions = [
+    "sphinx_github_role",
+]
+
+nitpicky = True
+"""
+    (tempdir / "conf.py").write_text(conf_contents)
+    with pytest.raises(
+        ExtensionError, match="Invalid github_default_org_project configuration"
+    ):
+        make_app(srcdir=tempdir)
 
 
-# test fails at the initialization stage, find some other way
-# @pytest.mark.sphinx(confoverrides={"github_default_org_project": (None, "proj")})
-# def test_missing_default_org_with_project_set_raises_error(
-#     app: SphinxTestApp,
-#     chunks: list[str],
-# ) -> None:
-#     app.build()
-#     assert app.statuscode != 0, "Expected build problem but it finished successfully"
+def test_missing_default_org_with_project_set_raises_error(tempdir, make_app):
+    conf_contents = """github_default_org_project = (None, "proj")
+
+extensions = [
+    "sphinx_github_role",
+]
+
+nitpicky = True
+"""
+    (tempdir / "conf.py").write_text(conf_contents)
+    with pytest.raises(
+        ExtensionError,
+        match="GitHub default organization cannot be empty if default project is set",
+    ):
+        make_app(srcdir=tempdir)
 
 
 @pytest.mark.sphinx(testroot="default-org")
