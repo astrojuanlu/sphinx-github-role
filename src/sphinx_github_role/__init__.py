@@ -49,7 +49,11 @@ class GitHub(SphinxRole):
         # breakpoint()
         match = self.gh_re.fullmatch(self.text)
 
-        parts = match.groupdict()
+        try:
+            parts = match.groupdict()
+        except AttributeError as exc:
+            raise ValueError(f"Malformed link '{self.rawtext}'") from exc
+
         parts["org"] = parts["org"] or _DEFAULTS[0]
         parts["proj"] = parts["proj"] or _DEFAULTS[1]
         if not parts["org"] or not parts["proj"]:

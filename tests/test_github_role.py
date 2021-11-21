@@ -33,6 +33,14 @@ def test_github_role_produces_html_hyperlink(app: SphinxTestApp, _: None) -> Non
     assert expected_chunk in content
 
 
+@pytest.mark.sphinx(testroot="malformed-link")
+def test_malformed_link_raises_error(
+    app: SphinxTestApp,
+) -> None:
+    with pytest.raises(ValueError, match="Malformed link"):
+        app.build()
+
+
 # Config is compatible with expected config (2-sequence)
 # but type is incompatible, which raises a warning
 @pytest.mark.sphinx(confoverrides={"github_default_org_project": "aa"})
