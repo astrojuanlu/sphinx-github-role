@@ -7,6 +7,8 @@ A github role for Sphinx.
 
 ## Usage
 
+### Basic usage
+
 MyST:
 
 ```md
@@ -20,6 +22,8 @@ reStructuredText:
 # index.rst
 See :github:`astrojuanlu/sphinx-github-role#1`.
 ```
+
+### Configuring a default organization and project
 
 The extension accepts a configuration `github_default_org_project`
 that can be a tuple `("default_org", "default_project")`
@@ -49,6 +53,15 @@ you only need to type this:
 ```md
 # index.md
 See {github}`#1`.
+```
+
+### Customizing link text
+
+You can also customize the link text, by wrapping the target in angle brackets:
+
+```md
+# index.md
+See {github}`this issue <#1>`.
 ```
 
 ## Contribute

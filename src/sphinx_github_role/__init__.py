@@ -9,7 +9,7 @@ import re
 from typing import TYPE_CHECKING, Any
 
 from docutils import nodes
-from sphinx.util.docutils import SphinxRole
+from sphinx.util.docutils import ReferenceRole
 
 if TYPE_CHECKING:
     from docutils.nodes import Node, system_message
@@ -40,7 +40,7 @@ def setup_github_role(_: Sphinx, config: Config) -> None:
         _DEFAULTS[1] = default_project
 
 
-class GitHub(SphinxRole):
+class GitHub(ReferenceRole):
     # For example: org/proj#1
     gh_re = re.compile(
         r"""((?P<org>.+)/)?  # Optional organization
@@ -53,7 +53,7 @@ class GitHub(SphinxRole):
 
     def run(self) -> tuple[list[Node], list[system_message]]:
         # breakpoint()
-        match = self.gh_re.fullmatch(self.text)
+        match = self.gh_re.fullmatch(self.target)
 
         try:
             parts = match.groupdict()
@@ -67,12 +67,12 @@ class GitHub(SphinxRole):
                 "Incomplete configuration or GitHub reference: "
                 f"default organization = '{_DEFAULTS[0]}', "
                 f"default project = '{_DEFAULTS[1]}', "
-                f"role text = '{self.text}'"
+                f"role text = '{self.rawtext}'"
             )
 
         node = nodes.reference(
             self.rawtext,
-            self.text,
+            self.title,
             refuri=self.gh_tpl.format(**parts),
         )
 
