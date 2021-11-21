@@ -1,6 +1,6 @@
 # sphinx-github-role
 
-A github role for Sphinx
+A github role for Sphinx.
 
 ## Usage
 
