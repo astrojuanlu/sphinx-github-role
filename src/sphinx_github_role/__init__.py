@@ -25,9 +25,9 @@ def setup_github_role(_: Sphinx, config: Config) -> None:
     if "github_default_org_project" in config.values:
         default_organization, default_project = config["github_default_org_project"]
 
-        if default_organization is None and default_project is not None:
+        if not default_organization and default_project:
             raise ValueError(
-                "GitHub default organization cannot be None if default project is set"
+                "GitHub default organization cannot be empty if default project is set"
             )
 
         _DEFAULTS[0] = default_organization
