@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from sphinx.application import Sphinx
     from sphinx.config import Config
 
-__version__ = "0.1b1"
+__version__ = "0.1b2"
 
 _DEFAULTS = [None, None]
 
