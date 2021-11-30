@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    tags:
+      # Don't try to be smart about PEP 440 compliance,
+      # see https://www.python.org/dev/peps/pep-0440/#appendix-b-parsing-version-strings-with-regular-expressions
+      - v*
 
 jobs:
   publish:
