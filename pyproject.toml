@@ -34,7 +34,9 @@ dynamic = ["version", "description"]
 name = "sphinx_github_role"
 
 [project.urls]
-Homepage = "http://www.sphinx-doc.org/"
+source = "https://github.com/astrojuanlu/sphinx-github-role"
+tracker = "https://github.com/astrojuanlu/sphinx-github-role/issues"
+documentation = "https://sphinx-github-role.readthedocs.io"
 
 [project.optional-dependencies]
 dev = [
