@@ -6,6 +6,14 @@
 
 A `github` role for Sphinx.
 
+## Installation
+
+To install, run
+
+```
+(.venv) $ pip install sphinx-github-role
+```
+
 ## Usage
 
 ### Basic usage
