@@ -2,7 +2,7 @@
 
 [![Documentation Status](https://readthedocs.org/projects/sphinx-github-role/badge/?version=latest)](https://sphinx-github-role.readthedocs.io/en/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-![PyPI](https://img.shields.io/pypi/v/sphinx-github-role)
+[![PyPI](https://img.shields.io/pypi/v/sphinx-github-role)](https://pypi.org/project/sphinx-github-role)
 
 A `github` role for Sphinx.
 
