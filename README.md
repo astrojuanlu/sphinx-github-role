@@ -16,6 +16,11 @@ To install, run
 
 ## Usage
 
+### Adding the extension to your configuration file
+
+For any functionality to work, you first need to add `"sphinx_github_role"`
+to your list of extensions in the Sphinx configuration file (`conf.py`).
+
 ### Basic usage
 
 MyST:
