@@ -20,6 +20,15 @@ To install, run
 
 For any functionality to work, you first need to add `"sphinx_github_role"`
 to your list of extensions in the Sphinx configuration file (`conf.py`).
+For example:
+
+```{code-block} python
+:caption: conf.py
+extensions = [
+    # ...
+    "sphinx_github_role",
+]
+```
 
 ### Basic usage
 
