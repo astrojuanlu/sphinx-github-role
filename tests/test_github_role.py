@@ -36,7 +36,9 @@ def test_github_role_produces_html_hyperlink(app: SphinxTestApp) -> None:
 def test_malformed_link_raises_error(
     app: SphinxTestApp,
 ) -> None:
-    with pytest.raises(ValueError, match="Malformed link"):
+    with pytest.raises(
+        ValueError, match="Incomplete configuration or GitHub reference"
+    ):
         app.build()
 
 
@@ -143,6 +145,48 @@ def test_github_role_custom_link_text_produces_html_hyperlink(
         '<a class="reference external" '
         'href="https://github.com/readthedocs/readthedocs.org/issues/1">'
         "Issue #1</a>"
+    )
+
+    app.build()
+    assert app.statuscode == 0, "Build finished with problems"
+
+    path = Path(app.outdir) / "index.html"
+    assert path.exists()
+
+    content = open(path).read()
+
+    assert expected_chunk in content
+
+
+@pytest.mark.sphinx(testroot="repo-default-org")
+def test_github_role_repo_default_org_produces_html_hyperlink(
+    app: SphinxTestApp,
+) -> None:
+    expected_chunk = (
+        '<a class="reference external" '
+        'href="https://github.com/readthedocs/readthedocs.org/">'
+        "readthedocs.org</a>"
+    )
+
+    app.build()
+    assert app.statuscode == 0, "Build finished with problems"
+
+    path = Path(app.outdir) / "index.html"
+    assert path.exists()
+
+    content = open(path).read()
+
+    assert expected_chunk in content
+
+
+@pytest.mark.sphinx(testroot="repo")
+def test_github_role_repo_produces_html_hyperlink(
+    app: SphinxTestApp,
+) -> None:
+    expected_chunk = (
+        '<a class="reference external" '
+        'href="https://github.com/sphinx-doc/sphinx/">'
+        "sphinx-doc/sphinx</a>"
     )
 
     app.build()
