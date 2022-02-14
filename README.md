@@ -37,6 +37,7 @@ MyST:
 ```{code-block} md
 :caption: index.md
 See {github}`astrojuanlu/sphinx-github-role#1`.
+This project depends on {github}`sphinx-doc/sphinx`.
 ```
 
 reStructuredText:
@@ -44,6 +45,7 @@ reStructuredText:
 ```{code-block} rst
 :caption: index.rst
 See :github:`astrojuanlu/sphinx-github-role#1`.
+This project depends on :github:`sphinx-doc/sphinx`.
 ```
 
 ### Configuring a default organization and project
@@ -77,6 +79,8 @@ you only need to type this:
 :caption: index.md
 See {github}`#1`.
 ```
+
+For repository links, only the `default_org` is relevant.
 
 ### Customizing link text
 
