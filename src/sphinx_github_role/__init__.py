@@ -41,15 +41,17 @@ def setup_github_role(_: Sphinx, config: Config) -> None:
 
 
 class GitHub(ReferenceRole):
-    # For example: org/proj#1
+    # For example: org/proj#1 or org/proj
     gh_re = re.compile(
         r"""((?P<org>.+)/)?  # Optional organization
-        (?P<proj>.+)?  # Optional project
-        \#(?P<num>\d+)  # Issue or pull request id""",
+        (?:(?P<proj>.+)?  # Optional project
+        \#(?P<num>\d+) # Issue or pull request id
+        |(?P<proj_only>[^\#]+)) # bare project""",
         re.VERBOSE,
     )
     # The /issues/{num} and /pull/{num} URLs automatically redirect
-    gh_tpl = "https://github.com/{org}/{proj}/issues/{num}"
+    gh_issue_tpl = "https://github.com/{org}/{proj}/issues/{num}"
+    gh_tpl = "https://github.com/{org}/{proj}/"
 
     def run(self) -> tuple[list[Node], list[system_message]]:
         # breakpoint()
@@ -60,8 +62,9 @@ class GitHub(ReferenceRole):
         except AttributeError as exc:
             raise ValueError(f"Malformed link '{self.rawtext}'") from exc
 
+        proj_only = parts["proj_only"]
         parts["org"] = parts["org"] or _DEFAULTS[0]
-        parts["proj"] = parts["proj"] or _DEFAULTS[1]
+        parts["proj"] = parts["proj"] or proj_only or _DEFAULTS[1]
         if not parts["org"] or not parts["proj"]:
             raise ValueError(
                 "Incomplete configuration or GitHub reference: "
@@ -70,11 +73,11 @@ class GitHub(ReferenceRole):
                 f"role text = '{self.rawtext}'"
             )
 
-        node = nodes.reference(
-            self.rawtext,
-            self.title,
-            refuri=self.gh_tpl.format(**parts),
-        )
+        if proj_only:
+            refuri = self.gh_tpl.format(**parts)
+        else:
+            refuri = self.gh_issue_tpl.format(**parts)
+        node = nodes.reference(self.rawtext, self.title, refuri=refuri)
 
         return [node], []
 
