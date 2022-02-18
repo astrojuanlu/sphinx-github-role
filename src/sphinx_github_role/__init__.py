@@ -60,7 +60,6 @@ class GitHub(ReferenceRole):
         try:
             parts = match.groupdict()
         except AttributeError as exc:
-            print(self.target)
             raise ValueError(f"Malformed link '{self.rawtext}'") from exc
 
         proj_only = parts["proj_only"]
@@ -75,17 +74,10 @@ class GitHub(ReferenceRole):
             )
 
         if proj_only:
-            node = nodes.reference(
-                self.rawtext,
-                self.title,
-                refuri=self.gh_tpl.format(**parts),
-            )
+            refuri = self.gh_tpl.format(**parts)
         else:
-            node = nodes.reference(
-                self.rawtext,
-                self.title,
-                refuri=self.gh_issue_tpl.format(**parts),
-            )
+            refuri = self.gh_issue_tpl.format(**parts)
+        node = nodes.reference(self.rawtext, self.title, refuri=refuri)
 
         return [node], []
 
